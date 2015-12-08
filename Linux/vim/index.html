@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vim Tutorial</title>
+<style>
+html {
+    font-size: 62.5%;
+}
+body {
+    font-size: 1.4rem;
+    font-family: "Helvetica Neue", Roboto, "Segoe UI", Calibri, sans-serif;
+    max-width: 800px, max-width: 80rem;
+    margin: 2rem 2rem;
+}
+html, body {
+    height: 100%;
+}
+
+@media only screen
+and (max-width: 666px) {
+    h1 {
+        font-size: 3.6rem;
+    }
+    li {
+        margin-left: -2rem;
+    }
+}
+
+@media only screen
+and (min-width: 667px) {
+    h1 {
+        font-size: 4.8rem;
+    }
+}
+
+h1 {
+    text-align: center;
+}
+code {
+    border-radius: 2px;
+    padding: 0 2px;
+    margin: 0 4px;
+    box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.3);
+    background-color: #f8f8ff;
+}
+</style>
+</head>
+<body>
+<h1><a id="Vim_Tutorial_0"></a>Vim Tutorial</h1>
+<h2><a id="Important_Things__Starting_Quitting_Modes_2"></a>Important Things:  Starting, Quitting, Modes</h2>
+<ul>
+<li>
+<p>Start Vim by typing <code>vim</code>, not <code>vi</code>.</p>
+<ul>
+<li>Some installations have separate binaries for each (eg., OpenBSD).</li>
+<li><code>vi</code> is the legacy, POSIX-standard program, <code>vim</code> is the new, not
+always compatible program</li>
+</ul>
+</li>
+<li>
+<p>Quit Vim in <em>Normal mode</em> by typing <code>&lt;Esc&gt;:q!&lt;CR&gt;</code></p>
+<ul>
+<li>Vim uses lots of mnemonics for its commands:  <code>:q</code> is short for
+<code>:quit</code>.</li>
+</ul>
+</li>
+<li>
+<p>Access Vim’s built-in help system by typing <code>&lt;Esc&gt;:help&lt;CR&gt;</code></p>
+</li>
+<li>
+<p>So what’s <em>Normal mode</em>?  What are <em>modes</em>?</p>
+<ul>
+<li>Vim is a <em>modal</em> editor, meaning it does different things based on
+which <em>mode</em> you have it in.</li>
+<li>There are many modes:
+<ul>
+<li><strong>Normal</strong> mode: used for navigation and text manipulation.
+The default mode. Hit &lt;Esc&gt; to get back to it.</li>
+<li><strong>Insert</strong> mode: used for inserting new text into a buffer.
+Enter this mode by typing <code>&lt;i&gt;</code> in Normal mode (or <code>&lt;I&gt;</code>, or
+<code>&lt;o&gt;</code>, or <code>&lt;O&gt;</code>, or…).</li>
+<li><strong>Visual</strong> mode: used for manipulating text selections.</li>
+<li><strong>Select</strong> mode: same as visual, but more GUI-oriented.</li>
+<li><strong>Command</strong> mode: used for entering editor commands, like
+<code>:q</code> to quit.</li>
+<li><code>ex</code> mode:  line-oriented mode.  Run screaming.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2><a id="Writing_Our_First_Document_31"></a>Writing Our First Document</h2>
+<ul>
+<li>
+<p>Three steps:</p>
+<ul>
+<li>Start Vim</li>
+<li>Hit <code>&lt;i&gt;</code> to enter Insert mode</li>
+<li>Start typing</li>
+</ul>
+</li>
+<li>
+<p>When done typing, hit <code>&lt;Esc&gt;</code> to go back to Normal mode, then <code>:saveas doc.txt</code> to save the file. (Shortcut:  <code>:sav &lt;filename&gt;</code>)</p>
+</li>
+<li>
+<p>Hit <code>&lt;i&gt;</code> to add more text, then hit <code>&lt;Esc&gt;:w</code> to <strong>w</strong>rite the
+current file to disk.</p>
+</li>
+<li>
+<p>Congratulations, you’ve used Vim to write a document!</p>
+</li>
+</ul>
+<h2><a id="Moving_Around_47"></a>Moving Around</h2>
+<ul>
+<li>
+<p>Sure, you can use arrow keys, PageUp, PageDown, etc. with Vim.</p>
+</li>
+<li>
+<p>What if those don’t work?</p>
+<ul>
+<li>Mac’s Terminal.app remaps PageUp/PageDown to scroll through the
+windows’s scrollback buffer instead of passing it through.</li>
+<li>If you find yourself with a real <code>vi</code> (like OpenBSD’s <code>nvi</code>), it
+may not understand arrow keys</li>
+</ul>
+</li>
+<li>
+<p>Solution:  use <code>hjkl</code> instead!</p>
+<ul>
+<li>In Normal/Command mode</li>
+<li><code>&lt;h&gt;</code> moves the cursor one character <strong>left</strong> (think: <code>h</code> is the
+left-most character)</li>
+<li><code>&lt;l&gt;</code> moves the cursor one character <strong>right</strong> (think: <code>l</code> is the
+right-most character)</li>
+<li><code>&lt;j&gt;</code> moves the cursor one character <strong>down</strong> (think: <code>j</code> hangs
+below the line)</li>
+<li><code>&lt;k&gt;</code> moves the cursor one character <strong>up</strong> (think: <code>k</code> ascends
+above the line)</li>
+</ul>
+</li>
+<li>
+<p>What about paging up/down?</p>
+<ul>
+<li>Use <code>&lt;C-d&gt;</code>/<code>&lt;C-u&gt;</code> to page <strong>d</strong>own/<strong>u</strong>p</li>
+</ul>
+</li>
+<li>
+<p>Why use <code>hjkl</code> and <code>&lt;C-d&gt;</code>/<code>&lt;C-u&gt;</code> instead of arrow and page keys if
+they work?</p>
+<ul>
+<li>Your fingers <em>never leave home row</em></li>
+</ul>
+</li>
+<li>
+<p>Do I <em>have</em> to use these weird keys?</p>
+<ul>
+<li>No!  Do what works for <strong>you</strong>, not for anyone else.</li>
+</ul>
+</li>
+</ul>
+<h2><a id="Advanced_Movement_79"></a>Advanced Movement</h2>
+<ul>
+<li><code>&lt;w&gt;</code> moves one <em>word</em> <strong>f</strong>orwards</li>
+<li><code>&lt;b&gt;</code> moves one <em>word</em> <strong>b</strong>ackwards</li>
+<li><code>&lt;^&gt;</code> moves to the first non-whitespace character at the <em>beginning</em>
+of a line</li>
+<li><code>&lt;0&gt;</code> moves to the <em>beginning</em> of a line, too (think: column <strong>zero</strong>)</li>
+<li><code>&lt;$&gt;</code> moves to the <em>end</em> of a line (think: regular expressions)</li>
+<li><code>&lt;G&gt;</code> moves to the <em>last</em> line of a document (think: <strong>G</strong>oto. No, it
+doesn’t make sense in this context.  More later.)</li>
+<li><code>&lt;gg&gt;</code> moves to the <em>first</em> line of a document
+<ul>
+<li><em>Note</em>: this is a Vim command, and will not work in <code>vi</code>. Use <code>:0</code>
+instead.</li>
+</ul>
+</li>
+<li><code>:[line]&lt;CR&gt;</code> moves the cursor to the line number specified.  For
+instance, <code>:16&lt;CR&gt;</code> would move the cursor to line 16 of the current
+buffer.</li>
+</ul>
+<h2><a id="More_Advanced_Movement_96"></a>More Advanced Movement</h2>
+<ul>
+<li><code>&lt;e&gt;</code> moves one <em>word</em> forwards, and places the cursor at the <strong>e</strong>nd
+of the word</li>
+<li>Most movement commands can take a <em>count</em> prefix.  Examples:
+<ul>
+<li><code>&lt;2w&gt;</code> moves two words forwards</li>
+<li><code>&lt;4j&gt;</code> moves four lines down</li>
+<li><code>&lt;12G&gt;</code> goto the twelfth line from the top of the document (I told
+you to wait for it.)</li>
+<li><code>&lt;3h&gt;</code> moves three characters backwards</li>
+</ul>
+</li>
+<li>The <code>z</code> command can be useful to move the viewport around (in Normal
+mode)
+<ul>
+<li><code>&lt;z&lt;CR&gt;&gt;</code> moves the current line to the top of the screen</li>
+<li><code>&lt;z.&gt;</code> moves the current line to the middle of the screen</li>
+<li><code>&lt;z-&gt;</code> moves the current line to the bottom of the screen</li>
+</ul>
+</li>
+</ul>
+<h2><a id="Text_Manipulation_113"></a>Text Manipulation</h2>
+<ul>
+<li>
+<p>Let’s talk about adding things.</p>
+<ul>
+<li>As seen before, <code>&lt;i&gt;</code> enters Insert mode and lets you start typing
+exactly where the cursor is located</li>
+<li><code>&lt;I&gt;</code> will place the cursor at the first non-space character on a
+line, then put you in Insert mode.</li>
+<li><code>&lt;a&gt;</code> will let you <strong>a</strong>ppend text.  It places the cursor one
+character to the right, then places you in Insert mode.</li>
+<li><code>&lt;A&gt;</code> <strong>a</strong>ppends text to the end of a line.</li>
+<li><code>&lt;o&gt;</code> <strong>o</strong>pens a new text line below the current line.</li>
+<li><code>&lt;O&gt;</code> <strong>o</strong>pens a new text line above the current line.</li>
+</ul>
+</li>
+<li>
+<p>Let’s talk about deleting things.</p>
+<ul>
+<li>Type the sentence, “The quick brown brown fox jumped over the lazy
+ddog.”</li>
+<li>See how you misspelled “dog”?
+<ul>
+<li>In Normal mode, use <code>&lt;h&gt;</code> to move backwards until your cursor
+is resting on the extra “d”</li>
+<li>Hit <code>&lt;x&gt;</code> to delete the character under the cursor</li>
+</ul>
+</li>
+<li>Oops, you wrote “brown” twice!
+<ul>
+<li>Method 1:  still in Insert mode, arrow-key your way back to
+the second “brown” and hit <code>&lt;BS&gt;</code> (Backspace) to delete it</li>
+<li>Method 2:
+<ul>
+<li>Hit <code>&lt;Esc&gt;</code> to go back to Normal mode</li>
+<li>Use <code>&lt;b&gt;</code> to moves backwards by words until your cursor is
+at the beginning of the second “brown”</li>
+<li>Type <code>&lt;dw&gt;</code> to <strong>d</strong>elete the <strong>w</strong>ord at the cursor.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Most movement commands also accept a modifier (the <code>d</code> in the
+previous example).  Other modifiers include:
+<ul>
+<li><code>&lt;c&gt;</code> <strong>c</strong>hanges the following [character/word/etc.] by
+deleting it, then putting Vim into Insert mode so you can
+start typing</li>
+</ul>
+</li>
+<li>You know what, that sentence is terrible.  Just delete the entire
+line.
+<ul>
+<li>Use <code>&lt;dd&gt;</code> to delete a line.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2><a id="Searching_151"></a>Searching</h2>
+<ul>
+<li>
+<p>To find the next occurrence of a text pattern, in Normal mode type
+<code>/pattern&lt;CR&gt;</code></p>
+<ul>
+<li>Example:  To find the next occurrence of the word “Normal” in this
+document, I’d type <code>&lt;Esc&gt;/Normal&lt;CR&gt;</code>
+<ul>
+<li>Note that <em>pattern</em> can be a regular expression!</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>The above is an example of a <em>forwards</em> search.  To perform a
+<em>backwards</em> search, use <code>?pattern&lt;CR&gt;</code> instead.</p>
+</li>
+<li>
+<p>To find the next occurrence of the same pattern, use <code>n</code>.</p>
+<ul>
+<li>Note that using <code>n</code> when doing a backwards search will find the
+next occurrence <em>earlier</em> in the document.</li>
+</ul>
+</li>
+<li>
+<p>To find the previous occurrence of the same pattern, use <code>N</code>.</p>
+</li>
+<li>
+<p>To find the next occurrence of the word underneath the cursor, in
+Normal mode hit <code>&lt;*&gt;</code></p>
+</li>
+<li>
+<p>Similarly, to find the previous occurrence of the word underneath the
+cursor, use <code>&lt;#&gt;</code></p>
+</li>
+</ul>
+<h2><a id="Replacing_175"></a>Replacing</h2>
+<ul>
+<li>There are many ways to replace text using Vim.  The following are only
+a couple of the most useful methods.  You should be in Normal mode
+(hit <code>&lt;Esc&gt;</code> to get there from Insert mode) for all of these.
+<ul>
+<li>To replace all occurrences of the word “cat” with “dog” <em>in a
+document</em>, type <code>:%s/cat/dog/</code></li>
+<li>To replace all occurrences of the word &quot;cat with “dog” <em>on the
+current line</em>, type <code>:s/cat/dog/g</code>.  (Note the absence of the
+percentage sign!)</li>
+<li>To replace the <em>next</em> occurrence of the word “cat” with “dog” in
+the document, type <code>:s/cat/dog/</code>.  (Note the absence of the <code>g</code> at
+the end!)
+<ul>
+<li>You can use <code>&lt;n&gt;</code> to search for the next occurrence of <em>cat</em>,
+and then use <code>&lt;&amp;&gt;</code> to replace it with <em>dog</em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2><a id="Selecting_Copying__Pasting_191"></a>Selecting, Copying &amp; Pasting</h2>
+<ul>
+<li>Vim calls “copying” text “yanking”.</li>
+<li>To yank text, first you have to highlight it.
+<ul>
+<li>Navigate to the start of your selection, then press <code>&lt;v&gt;</code> (this
+enters <strong>V</strong>isual mode)</li>
+<li>Using the movement keys, navigate to the end of the selection</li>
+<li>Hit <code>&lt;y&gt;</code> to <strong>y</strong>ank the text into Vim’s clipboard.</li>
+</ul>
+</li>
+<li>To paste text, place your cursor where you’d like the yanked text to
+appear and hit <code>&lt;p&gt;</code> to <strong>p</strong>aste it.  Note:  the yanked text will be
+placed <em>after</em> the cursor.  Use <code>&lt;P&gt;</code> to paste yanked text <em>before</em>
+the cursor.</li>
+<li>If you want to select entire lines, use <code>&lt;V&gt;</code> instead of <code>&lt;v&gt;</code>.</li>
+<li>BIG NOTE:  the <code>&lt;y&gt;</code> and <code>&lt;Y&gt;</code> commands <strong>do not work</strong> in regular
+<code>vi</code>!</li>
+</ul>
+<h2><a id="Miscellaneous_208"></a>Miscellaneous</h2>
+<ul>
+<li>Show line numbers by typing <code>:set number</code> in Normal mode.  Turn them
+off again by typing <code>:set nonumber</code>.</li>
+<li>To get help on any Vim command, type <code>:help command</code>.  For example:
+<ul>
+<li><code>:help number</code></li>
+<li><code>:help w</code> (to get help on the movement command)</li>
+<li><code>:help :w</code> (to get help on the <code>:write</code> command)</li>
+<li><code>:help vimtutor</code> (a very useful built-in tutorial!)</li>
+</ul>
+</li>
+<li>Fun tutorials:
+<ul>
+<li><a href="http://www.openvim.com/tutorial.html">OpenVim</a> - an interactive Vim tutorial
+(<a href="http://www.openvim.com/tutorial.html">http://www.openvim.com/tutorial.html</a>)</li>
+<li><a href="http://vim-adventures.com">Vim Adventures</a> - “Learning Vim while playing a
+game” (<a href="http://vim-adventures.com">http://vim-adventures.com</a>)</li>
+</ul>
+</li>
+</ul>
+<h2><a id="What_Else_Can_Vim_Do_224"></a>What Else Can Vim Do?</h2>
+<ul>
+<li>
+<p>A lot!</p>
+<ul>
+<li>Custom keybindings</li>
+<li>Syntax highlighting</li>
+<li>Auto-indenting</li>
+<li>Keyword completion</li>
+<li>Custom color schemes</li>
+<li>“Vimscript”</li>
+<li>Plugins</li>
+<li>Spell-checking</li>
+<li>Built-in <code>make</code> support</li>
+<li>Built-in <code>ctags</code> support</li>
+<li>It’s not emacs!</li>
+</ul>
+</li>
+<li>
+<p>See <a href="http://code.crosse.org/dotfiles/src/master/.vimrc">my .vimrc</a> (<a href="http://code.crosse.org/dotfiles/src/master/.vimrc">http://code.crosse.org/dotfiles/src/master/.vimrc</a>)
+for a fully-annotated example of a <code>.vimrc</code> configuration file that
+includes many of the above features.</p>
+</li>
+</ul>
+
+</body></html>
