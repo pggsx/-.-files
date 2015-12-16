@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Symlink important dot files to their concrete versions in the repo
-ln -s ~/.dot_files/bash/bashrc ~/.bashrc
-ln -s ~/.dot_files/vimrc ~/.vimrc
-ln -s ~/.dot_files/tmux.conf ~/.tmux.conf
+ln -s ~/dev_lunchbox/bash/bashrc ~/.bashrc
+ln -s ~/dev_lunchbox/vimrc ~/.vimrc
+ln -s ~/dev_lunchbox/tmux.conf ~/.tmux.conf
 if [ $( uname ) == 'Darwin' ]; then
-    ln -s ~/.dot_files/osx/profile ~/.profile
+    ln -s ~/dev_lunchbox/osx/profile ~/.profile
 fi
 
 # Install vim and friends
