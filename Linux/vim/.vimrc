@@ -1,46 +1,66 @@
+// vimrc configuration file
+
 set nocompatible               " be iMproved
 filetype off                   " required!
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call plug#begin('~/.vim/bundle')
 syn enable
 colorscheme morning
 set nowrap
-"set background=dark
+set wildmenu
+"auto-gen block comments
+autocmd FileType c,java,javascript inoreabbrev <buffer> /** /**<CR>/<Up>
 
-":setlocal spell spelllang=en_us
-" let Vundle manage Vundle
-" required! 
- autocmd FileType c,java,javascript inoreabbrev <buffer> /** /**<CR>/<Up>
-filetype plugin on
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-Bundle 'gmarik/vundle'
-Bundle 'scrooloose/nerdtree'
-Bundle 'christoomey/vim-tmux-navigator'
-Plugin 'AutomaticLaTeXPlugin'
-Plugin 'LaTeX-error-filter'
-Plugin 'bling/vim-airline'
-let g:airline#extensions#tabline#enabled = 1
-set laststatus=2
+"IDE Plugins
+
+
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'bling/vim-airline'
+Plug 'scrooloose/syntastic'
+Plug 'scrooloose/nerdtree'
+Plug 'moll/vim-bbye'
+	
+
+" Syntax/Languge Plugins
+Plug 'fatih/vim-go'
+Plug 'pangloss/vim-javascript'
+Plug 'wting/rust.vim'
+Plug 'cespare/vim-toml'
+Plug 'ekalinin/Dockerfile.vim'
+
 " a Git wrapper so awesome, it should be illegal
     " https://github.com/tpope/vim-fugitive
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " A vim plugin to display the indention levels with thin vertical lines
     " https://github.com/Yggdroot/indentLine
- Plugin 'Yggdroot/indentLine'
+ Plug 'Yggdroot/indentLine'
 " A code-completion engine for Vim
     " https://github.com/Valloric/YouCompleteMe
         let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
 				let g:indentLine_enabled=1
 " Vim plugin that displays tags in a window, ordered by scope
     " https://github.com/majutsushi/tagbar
-    Plugin 'majutsushi/tagbar'
+    Plug 'majutsushi/tagbar'
     nmap <leader>t :TagbarToggle<CR>
+"LaTeX Plugins
+Plug 'AutomaticLaTeXPlug'
+Plug 'LaTeX-error-filter'
+
+
+call plug#end()
+filetype plugin on
+
+"Airline Configurations
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+"Syntastic Configurations
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
 
 " show the 'best match so far' as search strings are typed:
 set incsearch
@@ -79,11 +99,63 @@ set colorcolumn=79
 highlight ColorColumn ctermbg=1
 set nu
 set tabstop=2
-set showmatch
 set hlsearch
-set nowrap 
+
+" Make searches case-insensitive, unless they contain upper-case
+set ignorecase
+set smartcase
+
+" Matching braces and visual line-wrapping
+set showmatch
+set nowrap
+
 set tw=95
-set nospell
 setlocal fo-=ro fo+=cql
+" Turn off spellcheck by default
+if has ('spell')
+  set nospell
+endif
+
+" Other settings
+set title           "Show the terminal title if possible"
+set autowrite       "Save the buffer when performing commands"
+set scrolloff=3     "Save three lines above and below"
+
+"*******************************************************************
+" Programming Specific Settings - (Syntax, Plugins, Features, etc.)
+"*******************************************************************
+
+" cscope and ctags integration
+if has("cscope")
+  set cscopetag cscopeverbose
+
+  if has('quickfix')
+    set cscopequickfix=s-,c-,d-,i-,t-,e-
+  endif
+
+  set csto=0
+
+  cnoreabbrev csa cs add
+  cnoreabbrev csf cs find
+  cnoreabbrev csk cs kill
+  cnoreabbrev csr cs reset
+  cnoreabbrev css cs show
+  cnoreabbrev csh cs help
+
+  " emulates 'find the ctags' file for cscope
+  function! LoadCscope()
+    let db = findfile("cscope.out", ".;")
+    if (!empty(db))
+      let path = strpart(db, 0, match(db, "/cscope.out$"))
+      set nocscopeverbose " suppress 'duplicate connection' error
+      exe "cs add " . db . " " . path
+      set cscopeverbose
+    endif
+  endfunction
+  call LoadCscope()
+endif
+
+" ctags
+set tags=./tags;/
 filetype plugin indent on     " required!
 set secure
