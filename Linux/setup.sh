@@ -19,5 +19,16 @@ if [ ! -f ~/.vim/autoload/plug.vim ]; then
   vim +PlugInstall +qall
 fi
 
+#install bash-IDE support
+cp bash-support.zip ~/.vim/
+cd ~/.vim/
+unzip bash-support.zip
+
+#copy templates over
+cp ~/github/dev_lunchbox/Linux/bash/vim/templates.zip ~/.vim/
+cd ~/.vim/
+unzip templates.zip
+mv templates temp
+
 # Source the bashrc we just pulled down
 #source ~/.bashrc
