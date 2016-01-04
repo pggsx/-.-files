@@ -1,4 +1,4 @@
-// vimrc configuration file
+" vimrc configuration file
 
 set nocompatible               " be iMproved
 filetype off                   " required!
@@ -7,6 +7,7 @@ syn enable
 colorscheme morning
 set nowrap
 set wildmenu
+set wildmode=list:longest,full
 "auto-gen block comments
 autocmd FileType c,java,javascript inoreabbrev <buffer> /** /**<CR>/<Up>
 
@@ -42,9 +43,8 @@ Plug 'tpope/vim-fugitive'
     Plug 'majutsushi/tagbar'
     nmap <leader>t :TagbarToggle<CR>
 "LaTeX Plugins
-Plug 'AutomaticLaTeXPlug'
 Plug 'LaTeX-error-filter'
-
+Plug 'lervag/vimtex'
 
 call plug#end()
 filetype plugin on
