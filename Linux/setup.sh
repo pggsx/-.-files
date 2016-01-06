@@ -30,5 +30,22 @@ cd ~/.vim/
 unzip templates.zip
 mv templates temp
 
+#installs ALL LaTeX packages for Vim plugin compatibility
+	arch=$(uname -m)
+	kernel=$(uname -r)
+	if [ -f /etc/lsb-release ]; then
+	    os=$(lsb_release -s -d)
+	elif [ -f /etc/debian_version ]; then
+			 os="Debian $(cat /etc/debian_version)"
+			 sudo apt-get install texlive-full
+			 sudo apt-get install latexmk
+	elif [ -f /etc/redhat-release ]; then
+	     os=`cat /etc/redhat-release`
+			 sudo dnf install texlive-scheme-full
+			 sudo dnf install latexmk
+	else
+	     os="$(uname -s) $(uname -r)"
+	fi
+
 # Source the bashrc we just pulled down
 #source ~/.bashrc

@@ -1,7 +1,7 @@
 " vimrc configuration file
 
 set nocompatible               " be iMproved
-filetype off                   " required!
+filetype plugin on             " required!
 call plug#begin('~/.vim/bundle')
 syn enable
 colorscheme morning
@@ -19,7 +19,15 @@ Plug 'bling/vim-airline'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'moll/vim-bbye'
-	
+Plug 'edkolev/tmuxline.vim'
+Plug 'Valloric/YouCompleteMe'
+Plug 'wookiehangover/jshint.vim'
+Plug 'Raimondi/delimitMate'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+
+
 
 " Syntax/Languge Plugins
 Plug 'fatih/vim-go'
@@ -27,7 +35,6 @@ Plug 'pangloss/vim-javascript'
 Plug 'wting/rust.vim'
 Plug 'cespare/vim-toml'
 Plug 'ekalinin/Dockerfile.vim'
-
 " a Git wrapper so awesome, it should be illegal
     " https://github.com/tpope/vim-fugitive
 Plug 'tpope/vim-fugitive'
@@ -45,7 +52,6 @@ Plug 'tpope/vim-fugitive'
 "LaTeX Plugins
 Plug 'LaTeX-error-filter'
 Plug 'lervag/vimtex'
-
 call plug#end()
 filetype plugin on
 
@@ -53,6 +59,9 @@ filetype plugin on
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+let g:tmuxline_preset = 'nightly_fox'
+set laststatus=2
+let g:tmuxline_preset = 'full'
 
 "Syntastic Configurations
 let g:syntastic_always_populate_loc_list = 1
@@ -60,8 +69,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:airline#extensions#tabline#enabled = 1
-set laststatus=2
-
+let g:javascript_enable_domhtmlcss =1
+let b:javascript_fold =1
 " show the 'best match so far' as search strings are typed:
 set incsearch
 
@@ -70,6 +79,49 @@ set incsearch
 " commands.  Improves smoothness of redrawing when there are multiple
 " windows and the terminal does not support a scrolling region.
 set ttyfast
+
+
+"Enabled YCM (YouCompleteMe IDE)
+let g:enable_ycm_at_startup = 0
+
+
+"Auto-Generating FileType Templates
+"C Source Files
+autocmd bufnewfile *.c so /home/pavan/.vim/temp/c_temp.txt
+autocmd bufnewfile *.c exe "3," . 12 . "g/File Name:/s//File Name: " .expand("%")
+autocmd bufnewfile *.c exe "3," . 12 . "g/Creation Date:/s//Creation Date: " .strftime("%d-%m-%y")
+autocmd bufwritepre,filewritepre *.c execute "normal ma"
+autocmd bufwritepre,filewritepre *.h exe "3," . 12 . "g/Last Modified:/s/.*/Last Modified: " .strftime("%c")
+autocmd bufwritepost,filewritepost *.c execute "normal `a"
+
+"C Header Files
+autocmd bufnewfile *.h so /home/pavan/.vim/temp/c_temp.txt
+autocmd bufnewfile *.h exe "3," . 12 . "g/File Name:/s//File Name : " .expand("%")
+autocmd bufnewfile *.h exe "3," . 12 . "g/Creation Date:/s//Creation Date: " .strftime("%d-%m-%y")
+autocmd bufwritepre,filewritepre *.h exe "3," . 12 . "g/Last Modified:/s/.*/Last Modified: " .strftime("%c")
+autocmd bufwritepre,filewritepre *.h execute "normal ma"
+autocmd bufwritepost,filewritepost *.h execute "normal `a"
+
+" Go Source Files
+autocmd bufnewfile *.go so /home/pavan/.vim/temp/go_temp.txt
+autocmd bufnewfile *.go exe "3," . 12 . "g/File Name:/s//File Name : " .expand("%")
+autocmd bufnewfile *.go exe "3," . 12 . "g/Creation Date:/s//Creation Date: " .strftime("%d-%m-%Y")
+autocmd Bufwritepre,filewritepre *.go execute "normal ma"
+autocmd bufwritepre,filewritepre *.go exe "3," . 12 . "g/Last Modified:/s/.*/Last Modified: " .strftime("%c")
+autocmd bufwritepost,filewritepost *.go execute "normal `a"
+
+
+" HTML Source Files
+autocmd bufnewfile *.html so /home/pavan/.vim/temp/html.txt
+
+
+"Javascript Source Files
+autocmd bufnewfile *.js so /home/pavan/.vim/temp/js.txt
+autocmd bufnewfile *.js exe "3," . 12 . "g/File Name:/s//File Name : " .expand("%")
+autocmd bufnewfile *.js exe "3," . 12 . "g/Creation Date:/s//Creation Date: " .strftime("%d-%m-%y")
+autocmd bufwritepre,filewritepre *.js exe "3," . 12 . "g/Last Modified:/s/.*/Last Modified: " .strftime("%c")
+autocmd bufwritepre,filewritepre *.js  execute "normal ma"
+autocmd bufwritepost,filewritepost *.js  execute "normal `a"
 
 " Go syntax hi-lighting
 let g:go_highlight_functions = 1
@@ -88,6 +140,32 @@ au FileType go nmap <leader>c <Plug>(go-coverage)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+
+
+" generate doc comment template
+
+function! GenerateDOCComment()
+  let l    = line('.')
+  let i    = indent(l)
+  let pre  = repeat(' ',i)
+  let text = getline(l)
+  let params   = matchstr(text,'([^)]*)')
+  let paramPat = '\([$a-zA-Z_0-9]\+\)[, ]*\(.*\)'
+  echomsg params
+  let vars = []
+  let m    = ' '
+  let ml = matchlist(params,paramPat)
+  while ml!=[]
+    let [_,var;rest]= ml
+    let vars += [pre.' * @param '.var]
+    let ml = matchlist(rest,paramPat,0)
+  endwhile
+  let comment = [pre.'/**',pre.' * '] + vars + [pre.' */']
+  call append(l-1,comment)
+  call cursor(l+1,i+3)
+endfunction
+
+map kk :call GenerateDOCComment()<CR>
 
 "GNU-Coding Standards
 setlocal cindent
