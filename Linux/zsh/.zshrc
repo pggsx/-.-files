@@ -63,15 +63,32 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-				export EDITOR='vim'
+	export EDITOR='vim'
 else
-				export EDITOR='mvim'
+	export EDITOR='mvim'
 fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
 #Alias Commands
+alias p="pwd"
+alias update="sudo dnf update"
+alias upgrade="sudo dnf upgrade"
+alias inst="sudo dnf install"
+alias search="sudo dnf search"
+alias remp="sudo dnf purge"
+alias ls="ls -al"
+alias l="ls"
+alias c="clear"
+alias up="cd .."
+alias home="cd ~"
+alias disk="cd /"
+alias trash="shred -f ~/.Trash"
+alias stu="ssh gudimepg@stu.cs.jmu.edu && reset"
+alias r="reset"
+alias s="cd .."
+alias init="git init && vim README.md"
 setopt correctall
 autoload -U promptinit
 promptinit
@@ -96,4 +113,5 @@ export PATH=$PATH:/home/pavan/github/cs450/src/utils
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+source $HOME/.zsh.aliases
 export DISPLAY=:0.0

@@ -5,7 +5,7 @@
 DIFF1=$(diff ~/github/dev_lunchbox/Linux/vim/.vimrc ~/.vimrc)
 DIFF2=$(diff ~/github/dev_lunchbox/Linux/bash/.bashrc ~/.bashrc)
 DIFF3=$(diff ~/github/dev_lunchbox/Linux/tmux.conf ~/.tmux.conf)
-DIFF4=$(diff ~/github/dev_lunchbox/Linux/bash/.zshrc ~/.zshrc)
+DIFF4=$(diff ~/github/dev_lunchbox/Linux/zsh/.zshrc ~/.zshrc)
 
 
 ln -sf  ~/.zshrc ~/github/dev_lunchbox/Linux/zshrc/zshrc-link
