@@ -1,0 +1,1 @@
+-T unit32_t -T uin8_t -T pid_T -T _tid_t -T uintptr_t -gnu

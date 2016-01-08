@@ -26,14 +26,14 @@ alias sub=cd $submit
 m ()
 {
 	"cd ../;
-	 make clean;
-	 make"
+	make clean;
+	make"
 }
 HISTFILESIZE=100000000
 HISTSIZE=100000
 if [ -f /etc/bash_completion ]; then
 
-		. /etc/bash_completion
+	. /etc/bash_completion
 
 fi
 
@@ -42,7 +42,7 @@ encrypt ()
 
 {
 
-		gpg -ac --no-options "$1"
+	gpg -ac --no-options "$1"
 
 }
 
@@ -52,6 +52,6 @@ decrypt ()
 
 {
 
-		gpg --no-options "$1"
+	gpg --no-options "$1"
 
 }
