@@ -19,7 +19,7 @@
 
 set -o nounset                              # Treat unset variables as an error
 #establishes symlink after gitcleanup.sh has been run
-ln -sf  ~/.bashrc ~/github/dev_lunchbox/Linux/bash/bashrc-link
-ln -sf  ~/.vimrc ~/github/dev_lunchbox/Linux/vim/vimrc-link
-ln -sf  ~/.tmux.conf ~/github/dev_lunchbox/Linux/tmux-link
-
+ln -sf  ~/.bashrc $(pwd)/bash/bashrc-link
+ln -sf  ~/.vimrc $(pwd)/vim/vimrc-link
+ln -sf  ~/.tmux.conf $(pwd)/tmux-link
+ln -sf  ~/.tmuxline.conf $(pwd)/tmuxline-link

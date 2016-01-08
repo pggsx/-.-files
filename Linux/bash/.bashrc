@@ -17,6 +17,9 @@ HISTSIZE=100000
 if [ -f /etc/bash_completion ]; then
 
 
-		. /etc/bash_completion
+	. /etc/bash_completion
 
 fi
+
+#source aliases
+source ~/.bash.aliases

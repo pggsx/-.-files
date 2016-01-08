@@ -7,15 +7,15 @@ then
 	echo "installing oh-my-zsh and additional configs and setup"
 	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	cp zsh/.zshrc	
-	ln -sf `pwd`/zshrc-link
-elif [ "$MYSHELL" == *"bash"*]
+	ln -sf $(pwd)zsh/zshrc-link
+elif [[ "$MYSHELL" == *"bash"* ]]
 then 
 	echo "Bash found"
 	echo "Downloading Bash configs and setup"
 	cp bash/.bashrc ~/.bashrc
 	cp bash/.bash.aliases ~/.bash.aliases
-	ln -sf ~/.bashrc `pwd`/bashrc-link
-	ln -sf ~/.bash.aliases `pwd`/bash-aliases-link
+	ln -sf ~/.bashrc $(pwd)/bash/bashrc-link
+	ln -sf ~/.bash.aliases $(pwd)/bash/bash-aliases-link
 	source ~/.bashrc
 else
 	echo "unknown shell type"
@@ -23,9 +23,11 @@ fi
 
 # Symlink important dot files to their concrete versions in the repo
 cp vim/.vimrc ~/.vimrc
-cp tmux.conf ~/.tmux.conf
-ln -sf  `pwd`/vim/vimrc-link
-ln -sf  `pwd`/tmux-link
+cp .tmux.conf ~/.tmux.conf
+cp .tmuxline.conf ~/.tmuxline.conf
+ln -sf ~/.vimrc $(pwd)/vim/vimrc-link
+ln -sf ~/.tmux.conf $(pwd)/tmux-link
+ln -sf ~/.tmuxline.conf $(pwd)/tmuxline-link
 
 #if [ $( uname ) == 'Darwin' ]; then
 #    ln -s ~/dev_lunchbox/osx/profile ~/.profile
@@ -40,12 +42,13 @@ if [ ! -f ~/.vim/autoload/plug.vim ]; then
 fi
 
 #install bash-IDE support
-cp bash-support.zip ~/.vim/
+cp $(pwd)bash/bash-support.zip ~/.vim/
 cd ~/.vim/
 unzip bash-support.zip
 
 #copy templates over
-cp vim/templates.zip ~/.vim/
+cd -
+cp $(pwd)/vim/templates.zip ~/.vim/
 cd ~/.vim/
 unzip templates.zip
 mv templates temp
