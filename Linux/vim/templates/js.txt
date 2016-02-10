@@ -1,14 +1,15 @@
 :insert
 /******************************************
-*
-* File Name:
-* Purpose:
-* Creation Date:
-* Last Modified:
-* Created By:
-*
-*
-********************************************/
+ *
+ * File Name:
+ * Purpose:
+ * Author: pggsx
+ * Creation Date:
+ * Last Modified:
+ * Created By:
+ *
+ *
+ ********************************************/
 function generic()
 {
 

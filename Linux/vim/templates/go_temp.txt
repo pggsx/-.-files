@@ -1,15 +1,16 @@
 :insert
 package main
 /******************************************
-*
-* File Name:
-* Purpose:
-* Creation Date:
-* Last Modified:
-*
-*
-*
-********************************************/
+ *
+ * File Name:
+ * Purpose:
+ * Author: pggsx
+ * Creation Date:
+ * Last Modified:
+ *
+ *
+ *
+ ********************************************/
 
 //imports
 import "fmt"
