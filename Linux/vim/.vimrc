@@ -88,7 +88,7 @@ let g:enable_ycm_at_startup = 0
 
 "Auto-Generating FileType Templates
 "C Source Files
-autocmd bufnewfile *.c so /home/pavan/.vim/temp/c_temp.txt
+autocmd bufnewfile *.c so ~/.vim/temp/c_temp.txt
 autocmd bufnewfile *.c exe "3," . 12 . "g/File Name:/s//File Name: " .expand("%")
 autocmd bufnewfile *.c exe "3," . 12 . "g/Creation Date:/s//Creation Date: " .strftime("%d-%m-%y")
 autocmd bufwritepre,filewritepre *.c execute "normal ma"
@@ -96,7 +96,7 @@ autocmd bufwritepre,filewritepre *.h exe "3," . 12 . "g/Last Modified:/s/.*/\tLa
 autocmd bufwritepost,filewritepost *.c execute "normal `a"
 
 "C Header Files
-autocmd bufnewfile *.h so /home/pavan/.vim/temp/c_temp.txt
+autocmd bufnewfile *.h so ~/.vim/temp/c_temp.txt
 autocmd bufnewfile *.h exe "3," . 12 . "g/File Name:/s//File Name : " .expand("%")
 autocmd bufnewfile *.h exe "3," . 12 . "g/Creation Date:/s//Creation Date: " .strftime("%d-%m-%y")
 autocmd bufwritepre,filewritepre *.h execute "normal ma"
@@ -104,7 +104,7 @@ autocmd bufwritepre,filewritepre *.h exe "3," . 12 . "g/Last Modified:/s/.*/\tLa
 autocmd bufwritepost,filewritepost *.h execute "normal `a"
 
 " Go Source Files
-autocmd bufnewfile *.go so /home/pavan/.vim/temp/go_temp.txt
+autocmd bufnewfile *.go so ~/.vim/temp/go_temp.txt
 autocmd bufnewfile *.go exe "3," . 12 . "g/File Name:/s//File Name : " .expand("%")
 autocmd bufnewfile *.go exe "3," . 12 . "g/Creation Date:/s//Creation Date: " .strftime("%d-%m-%Y")
 autocmd Bufwritepre,filewritepre *.go execute "normal ma"
@@ -151,24 +151,24 @@ au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 " generate doc comment template
 
 function! GenerateDOCComment()
-				let l    = line('.')
-				let i    = indent(l)
-				let pre  = repeat(' ',i)
-				let text = getline(l)
-				let params   = matchstr(text,'([^)]*)')
-				let paramPat = '\([$a-zA-Z_0-9]\+\)[, ]*\(.*\)'
-				echomsg params
-				let vars = []
-				let m    = ' '
-				let ml = matchlist(params,paramPat)
-				while ml!=[]
-								let [_,var;rest]= ml
-								let vars += [pre.' * @param '.var]
-								let ml = matchlist(rest,paramPat,0)
-				endwhile
-				let comment = [pre.'/**',pre.' * '] + vars + [pre.' */']
-				call append(l-1,comment)
-				call cursor(l+1,i+3)
+	let l    = line('.')
+	let i    = indent(l)
+	let pre  = repeat(' ',i)
+	let text = getline(l)
+	let params   = matchstr(text,'([^)]*)')
+	let paramPat = '\([$a-zA-Z_0-9]\+\)[, ]*\(.*\)'
+	echomsg params
+	let vars = []
+	let m    = ' '
+	let ml = matchlist(params,paramPat)
+	while ml!=[]
+		let [_,var;rest]= ml
+		let vars += [pre.' * @param '.var]
+		let ml = matchlist(rest,paramPat,0)
+	endwhile
+	let comment = [pre.'/**',pre.' * '] + vars + [pre.' */']
+	call append(l-1,comment)
+	call cursor(l+1,i+3)
 endfunction
 
 map kk :call GenerateDOCComment()<CR>
@@ -197,7 +197,7 @@ set tw=95
 setlocal fo-=ro fo+=cql
 " Turn off spellcheck by default
 if has ('spell')
-				set nospell
+	set nospell
 endif
 
 " Other settings
@@ -211,32 +211,32 @@ set scrolloff=3     "Save three lines above and below"
 
 " cscope and ctags integration
 if has("cscope")
-				set cscopetag cscopeverbose
+	set cscopetag cscopeverbose
 
-				if has('quickfix')
-								set cscopequickfix=s-,c-,d-,i-,t-,e-
-				endif
+	if has('quickfix')
+		set cscopequickfix=s-,c-,d-,i-,t-,e-
+	endif
 
-				set csto=0
+	set csto=0
 
-				cnoreabbrev csa cs add
-				cnoreabbrev csf cs find
-				cnoreabbrev csk cs kill
-				cnoreabbrev csr cs reset
-				cnoreabbrev css cs show
-				cnoreabbrev csh cs help
+	cnoreabbrev csa cs add
+	cnoreabbrev csf cs find
+	cnoreabbrev csk cs kill
+	cnoreabbrev csr cs reset
+	cnoreabbrev css cs show
+	cnoreabbrev csh cs help
 
-				" emulates 'find the ctags' file for cscope
-				function! LoadCscope()
-								let db = findfile("cscope.out", ".;")
-								if (!empty(db))
-												let path = strpart(db, 0, match(db, "/cscope.out$"))
-												set nocscopeverbose " suppress 'duplicate connection' error
-												exe "cs add " . db . " " . path
-												set cscopeverbose
-								endif
-				endfunction
-				call LoadCscope()
+	" emulates 'find the ctags' file for cscope
+	function! LoadCscope()
+		let db = findfile("cscope.out", ".;")
+		if (!empty(db))
+			let path = strpart(db, 0, match(db, "/cscope.out$"))
+			set nocscopeverbose " suppress 'duplicate connection' error
+			exe "cs add " . db . " " . path
+			set cscopeverbose
+		endif
+	endfunction
+	call LoadCscope()
 endif
 
 " ctags
