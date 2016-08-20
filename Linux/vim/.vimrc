@@ -4,7 +4,7 @@ set nocompatible               " be iMproved
 filetype plugin on             " required!
 call plug#begin('~/.vim/bundle')
 syn enable
-colorscheme morning
+colorscheme delek 
 set nowrap
 set wildmenu
 set wildmode=list:longest,full
@@ -15,6 +15,7 @@ autocmd FileType c,java,javascript inoreabbrev <buffer> /** /**<CR>/<Up>
 
 
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'scrooloose/nerdcommenter' 
 Plug 'bling/vim-airline'
 Plug 'scrooloose/syntastic'
 Plug 'scrooloose/nerdtree'
@@ -171,7 +172,17 @@ function! GenerateDOCComment()
 	call cursor(l+1,i+3)
 endfunction
 
-map kk :call GenerateDOCComment()<CR>
+map bc :call GenerateDOCComment()<CR>
+
+
+
+
+"NerdCommenterConfigs
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDDefaultAlign = 'left'
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
 
 "GNU-Coding Standards
 setlocal cindent

@@ -10,5 +10,5 @@ fi
 rm -rf ~/.vim/autoload
 rm -rf ~/.vim/bundle
 rm -rf ~/.fzf
-rm ~/.fzf.bash
-rm ~/.fzf.zsh
+#rm ~/.fzf.bash
+#rm ~/.fzf.zsh

@@ -6,7 +6,7 @@ then
 	echo "zsh found"
 	echo "installing oh-my-zsh and additional configs and setup"
 	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	cp zsh/.zshrc	
+	cp zsh/.zshrc ~	
 	ln -sf $(pwd)zsh/zshrc-link
 elif [[ "$MYSHELL" == *"bash"* ]]
 then 
@@ -42,7 +42,7 @@ if [ ! -f ~/.vim/autoload/plug.vim ]; then
 fi
 
 #install bash-IDE support
-cp $(pwd)bash/bash-support.zip ~/.vim/
+cp $(pwd)/bash/bash-support.zip ~/.vim/
 cd ~/.vim/
 unzip bash-support.zip
 
