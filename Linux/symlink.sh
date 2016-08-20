@@ -19,7 +19,9 @@
 
 set -o nounset                              # Treat unset variables as an error
 #establishes symlink after gitcleanup.sh has been run
-ln -sf  ~/.bashrc /bash/bashrc-link
+ln -sf  ~/.bashrc bash/bashrc-link
 ln -sf  ~/.vimrc vim/vimrc-link
+ln -sf  ~/.zshrc zsh/zshrc-link
 ln -sf  ~/.tmux.conf tmux-link
 ln -sf  ~/.tmuxline.conf tmuxline-link
+echo "Symlink Etablished!"

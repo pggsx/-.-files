@@ -5,7 +5,7 @@ PROMPT=" > "
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
+ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -114,4 +114,4 @@ export PATH=$PATH:/home/pavan/github/cs450/src/utils
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source $HOME/.zsh.aliases
-export DISPLAY=:0.0
+export PATH=$PATH:/usr/local/go/bin
