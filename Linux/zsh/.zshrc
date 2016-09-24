@@ -115,3 +115,4 @@ export PATH=$PATH:/home/pavan/github/cs450/src/utils
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source $HOME/.zsh.aliases
 export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go-home
