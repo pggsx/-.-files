@@ -1,4 +1,4 @@
-### Dev LunchBox
+### Env-Box (Environment Configurations for Vim,Tmux,Bash,ZSH)
 - Tired of having to keeping track of various development configurations files??
 - Look no further:
 - The Dev-LunchBox is a kit that contains configuration files for multiple environments including:
