@@ -2,14 +2,14 @@
 MYSHELL=`echo $SHELL`
 #Checks current shell
 if [[ "$MYSHELL" == *"zsh"*	]]
-then 
+then
 	echo "zsh found"
 	echo "installing oh-my-zsh and additional configs and setup"
 	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	cp zsh/.zshrc ~	
+	cp zsh/.zshrc ~
 	ln -sf $(pwd)zsh/zshrc-link
 elif [[ "$MYSHELL" == *"bash"* ]]
-then 
+then
 	echo "Bash found"
 	echo "Downloading Bash configs and setup"
 	cp bash/.bashrc ~/.bashrc
